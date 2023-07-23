@@ -152,4 +152,34 @@ mkdir dataset
 ```
 Copy The Code now of face_data.py now.
 
+The code is very similar to the code that we saw for face detection. What we added, was an "input command" to capture a user id, that should be an integer number (1, 2, 3, etc)
+
+```
+face_id = input('\n enter user id end press  ==>  ')
+```
+And for each one of the captured frames, we should save it as a file on a "dataset" directory:
+```
+cv2.imwrite("dataset/User." + str(face_id) + '.' + str(count) + ".jpg", gray[y:y+h,x:x+w])
+```
+Note that for saving the above file, you must have imported the library "os". Each file's name will follow the structure:
+
+```
+User.face_id.count.jpg
+```
+For example, for a user with a face_id = 1, the 4th sample file on dataset/ directory will be something like:
+
+```
+User.1.4.jpg
+```
+# Step 6: Trainer
+
+On this second phase, we must take all user data from our dataset and "trainer" the OpenCV Recognizer. This is done directly by a specific OpenCV function. The result will be a .yml file that will be saved on a "trainer/" directory.
+
+So, let's start creating a subdirectory where we will store the trained data:
+
+```
+mkdir trainer
+
+```
+Now Copy the code of face_train.py.
 
