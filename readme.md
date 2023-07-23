@@ -204,3 +204,19 @@ we will capture a fresh face on our camera and if this person had his face captu
 Hey Folks, CONGRATULATIONS You have make it so far now few things More left.
 Copy the face_recognize.py code now.
 
+We are including here a new array, so we will display "names", instead of numbered ids:
+
+```
+names = ['None', 'Marcelo', 'Paula', 'Ilza', 'Z', 'W']
+```
+Next, we will detect a face, same we did before with the haasCascade classifier. Having a detected face we can call the most important function in the above code:
+
+```
+id, confidence = recognizer.predict(gray portion of the face)
+```
+The recognizer.predict (), will take as a parameter a captured portion of the face to be analyzed and will return its probable owner, indicating its id and how much confidence the recognizer is in relation with this match.
+
+**Note that the confidence index will return "zero" if it will be cosidered a perfect match**
+
+Special Thanks To 🔥MJRoBot (Marcelo Rovai).🔥
+
