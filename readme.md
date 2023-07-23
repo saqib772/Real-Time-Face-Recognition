@@ -83,7 +83,73 @@ sudo modprobe bcm2835-v4l2
 
 ```
 # Step 4: Face Detection
+
+Object Detection using Haar feature-based cascade classifiers is an effective object detection method proposed by Paul Viola and Michael Jones in their paper, "Rapid Object Detection using a Boosted Cascade of Simple Features" in 2001. It is a machine learning based approach where a cascade function is trained from a lot of positive and negative images. It is then used to detect objects in other images.
+
+Here we will work with face detection. Initially, the algorithm needs a lot of positive images (images of faces) and negative images (images without faces) to train the classifier. Then we need to extract features from it. The good news is that OpenCV comes with a trainer as well as a detector. If you want to train your own classifier for any object like car, planes etc. you can use OpenCV to create one. Its full details are given here: ![Cascade Classifier Training.](https://docs.opencv.org/3.3.0/dc/d88/tutorial_traincascade.html)
+
+If you do not want to create your own classifier, OpenCV already contains many pre-trained classifiers for face, eyes, smile, etc. Those XML files can be download from ![haarcascades](https://github.com/opencv/opencv/tree/master/data/haarcascades) directory.
+
+
+
 Copy The Code of face.py now.
 
+When you compare with the last code used to test the camera, you will realize that few parts were added to it. 
+Note the line below:
+```
+faceCascade = cv2.CascadeClassifier('Cascades/haarcascade_frontalface_default.xml')
+```
+This is the line that loads the "classifier" (that must be in a directory named "Cascades/", under your project directory).
+
+Then, we will set our camera and inside the loop, load our input video in grayscale mode (same we saw before).
+
+Now we must call our classifier function, passing it some very important parameters, as scale factor, number of neighbors and minimum size of the detected face.
+
+```
+faces = faceCascade.detectMultiScale(
+        gray,     
+        scaleFactor=1.2,
+        minNeighbors=5,     
+        minSize=(20, 20)
+    )
+```
+The function will detect faces on the image. Next, we must "mark" the faces in the image, using, for example, a blue rectangle. This is done with this portion of the code:
+
+```
+for (x,y,w,h) in faces:
+    cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
+    roi_gray = gray[y:y+h, x:x+w]
+    roi_color = img[y:y+h, x:x+w]
+```
+run the file using:
+```
+python faceDetection.py
+```
+
+# Step 5: Data Gathering
+
+You can Look the Following Tutorials:
+
+![FACE RECOGNITION USING OPENCV AND PYTHON: A BEGINNER’S GUIDE](https://www.superdatascience.com/opencv-face-recognition/)
+
+![FACE RECOGNITION - 3 parts](https://thecodacus.com/category/opencv/face-recognition/)
+
+
+ What we will do here, is starting from last step (Face Detecting), we will simply create a dataset, where we will store for each id, a group of photos in gray with the portion that was used for face detecting.
+
+First, create a directory where you develop your project, for example, FacialRecognitionProject:
+
+```
+mkdir FacialRecognitionProject
+```
+In this directory, besides the 3 python scripts that we will create for our project, we must have saved on it the Facial Classifier. You can download it from 
+![haarcascade_frontalface_default.xml](https://github.com/Mjrovai/OpenCV-Face-Recognition/blob/master/FacialRecognition/haarcascade_frontalface_default.xml)
+
+Next, create a subdirectory where we will store our facial samples and name it "dataset":
+
+```
+mkdir dataset
+```
+Copy The Code now of face_data.py now.
 
 
