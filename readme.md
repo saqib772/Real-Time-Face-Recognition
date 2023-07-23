@@ -182,4 +182,25 @@ mkdir trainer
 
 ```
 Now Copy the code of face_train.py.
+Confirm if you have the PIL library installed on your Rpi. If not, run the below command in Terminal:
+
+```
+pip install pillow
+```
+We will use as a recognizer, the LBPH (LOCAL BINARY PATTERNS HISTOGRAMS) Face Recognizer, included on OpenCV package. We do this in the following line:
+```
+recognizer = cv2.face.LBPHFaceRecognizer_create()
+```
+The function "getImagesAndLabels (path)", will take all photos on directory: "dataset/", returning 2 arrays: "Ids" and "faces". With those arrays as input, we will "train our recognizer":
+
+```
+recognizer.train(faces, ids)
+```
+As a result, a file named "trainer.yml" will be saved in the trainer directory that was previously created by us.
+
+# Step 7: Recognizer
+we will capture a fresh face on our camera and if this person had his face captured and trained before, our recognizer will make a "prediction" returning its id and an index, shown how confident the recognizer is with this match.
+
+Hey Folks, CONGRATULATIONS You have make it so far now few things More left.
+Copy the face_recognize.py code now.
 
